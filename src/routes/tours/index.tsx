@@ -2,16 +2,17 @@ import { component$ } from '@builder.io/qwik';
 import Header from '~/components/layout/header';
 import Footer from '~/components/layout/footer';
 import TourCard from '~/components/cards/tour-card';
+import { Link } from 'flowbite-qwik';
 
 export default component$(() => {
   // Mock ma'lumotlar (Buni keyinchalik Django API'dan olasiz)
   const tours = [
-    { title: "Antaliya Sayohati", category: "Plyaj", duration: "7 kun / 6 kecha", price: "$450", image: "https://images.unsplash.com/photo-15420518418c7-d19301017062" },
-    { title: "Umra Safari 2025", category: "Ziyorat", duration: "14 kun", price: "$1200", image: "https://images.unsplash.com/photo-1564769662533-4f00a87b4056" },
+    { title: "Turkiya Sayohati", category: "Tarix", duration: "7 kun / 6 kecha", price: "$450", image: "https://facts.net/wp-content/uploads/2020/05/AdobeStock_104060928.jpeg" },
+    { title: "Umra Safari 2025", category: "Ziyorat", duration: "14 kun", price: "$1200", image: "https://i.pinimg.com/originals/35/1e/0a/351e0a1b9050c2494fe1c890c59e51e3.jpg" },
     { title: "Yevropa Bo'ylab", category: "Ekshursiya", duration: "10 kun", price: "$1500", image: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b" },
     { title: "Misr Piramidalari", category: "Tarix", duration: "5 kun", price: "$380", image: "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368" },
     { title: "Dubay", category: "Hordiq", duration: "4 kun", price: "$700", image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c" },
-    { title: "Samarqand & Buxoro", category: "Ichki", duration: "3 kun", price: "2 mln so'm", image: "https://images.unsplash.com/photo-1528154291023-a6525fabe5b4" },
+    { title: "Samarqand & Buxoro", category: "Ichki", duration: "3 kun", price: "2 mln so'm", image: "https://media.cnn.com/api/v1/images/stellar/prod/231219110146-samarkand-eternal-city-01.jpg?c=16x9&q=w_1280,c_fill" },
   ];
 
   return (
@@ -64,9 +65,9 @@ export default component$(() => {
              <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
              <h2 class="text-3xl font-bold mb-6 relative z-10">Maxsus tur paket kerakmi?</h2>
              <p class="mb-8 text-green-100 relative z-10">Biz bilan bog'laning va biz sizning xohishingizga ko'ra individual tur shakllantirib beramiz.</p>
-             <button class="bg-white text-green-700 px-10 py-4 rounded-2xl font-bold hover:bg-gray-100 transition relative z-10 shadow-xl">
+             <Link href="/contact" class="bg-white text-green-700 px-10 py-4 rounded-2xl font-bold hover:bg-gray-100 transition relative z-10 shadow-xl">
                Menejer bilan bog'lanish
-             </button>
+             </Link>
           </div>
         </section>
       </main>

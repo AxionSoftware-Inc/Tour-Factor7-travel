@@ -21,7 +21,7 @@ export default component$(() => {
           <ul class="space-y-2">
             <li>Ommaviy oferta</li>
             <li>Maxfiylik siyosati</li>
-            <li>STIR: 301234567</li>
+            <li>STIR: ---</li>
           </ul>
         </div>
         <div>

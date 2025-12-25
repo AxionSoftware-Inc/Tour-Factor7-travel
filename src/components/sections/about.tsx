@@ -28,7 +28,7 @@ export default component$(() => {
           </div>
           <div class="md:w-1/2 relative">
              <div class="aspect-video bg-gray-100 rounded-2xl overflow-hidden shadow-2xl border-8 border-white">
-                <img src="https://images.unsplash.com/photo-1436491865332-7a61a109c0f3" alt="Travel" class="w-full h-full object-cover" />
+                <img src="https://chip.travel/uploads/blog/i/mOAnTvpnNP689353495a5a9.jpg" alt="Travel" class="w-full h-full object-cover" />
              </div>
           </div>
         </div>

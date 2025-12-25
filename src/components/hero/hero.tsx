@@ -4,7 +4,7 @@ export default component$(() => {
   return (
     <section class="relative bg-gray-900 text-white py-24 px-4 overflow-hidden">
       {/* Background overlay */}
-      <div class="absolute inset-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800')] bg-cover bg-center"></div>
+      <div class="absolute inset-0 opacity-40 bg-[url('https://chip.travel/uploads/blog/i/mOAnTvpnNP689353495a5a9.jpg')] bg-cover bg-center"></div>
       
       <div class="relative container mx-auto text-center">
         <h1 class="text-4xl md:text-6xl font-extrabold mb-6">
