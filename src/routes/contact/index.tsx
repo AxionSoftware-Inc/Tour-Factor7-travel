@@ -42,8 +42,8 @@ export default component$(() => {
                   </svg>
                 </div>
                 <h3 class="text-xl font-bold mb-2">Manzil</h3>
-                <p class="text-gray-600">Toshkent sh., Chilonzor tumani,</p>
-                <p class="text-gray-600">5-mavze, 12-uy</p>
+                <p class="text-gray-600">Toshkent sh., Olmazor tumani,</p>
+                <p class="text-gray-600">BERUNIY B-3 MAVZESI, 41-UY</p>
               </div>
 
               {/* Email Card */}

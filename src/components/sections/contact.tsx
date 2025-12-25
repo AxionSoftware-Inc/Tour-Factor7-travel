@@ -3,7 +3,7 @@ import { component$ } from '@builder.io/qwik';
 export default component$(() => {
   // Google Maps manzili (Toshkent markazi misolida)
   // O'zingizning ofisingiz koordinatalarini "Share > Embed map" orqali olib, src qismiga qo'yishingiz mumkin
-  const mapUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d191885.50263695273!2d69.1392823797669!3d41.28251254580237!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b0cc379e9c3%3A0xa5a99712959ee37f!2sTashkent%2C%20Uzbekistan!5e0!3m2!1sen!2s!4v1703400000000!5m2!1sen!2s";
+  const mapUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2994.9!2d69.2064!3d41.3535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8db6d85918bb%3A0xc3b44615d183857e!2sBeruniy%20B-3!5e0!3m2!1sen!2suz!4v1703510000000";
 
   return (
     <section id="contact" class="py-24 bg-white">
@@ -69,7 +69,7 @@ export default component$(() => {
             ></iframe>
             
             {/* Manzil haqida kichik info box (Floating) */}
-            <div class="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-green-100 hidden md:block">
+            <div class="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-green-100 hidden md:block">
               <div class="flex items-start gap-4">
                 <div class="bg-green-600 p-3 rounded-lg text-white">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -77,8 +77,8 @@ export default component$(() => {
                   </svg>
                 </div>
                 <div>
-                  <h4 class="font-bold text-gray-900">Bizning Ofis</h4>
-                  <p class="text-sm text-gray-600">Toshkent sh., Chilonzor tumani, 5-mavze</p>
+                  <h4 class="font-bold text-gray-900">Factor7 Travel Ofisi</h4>
+                  <p class="text-sm text-gray-600">Olmazor tumani, Beruniy B-3 mavzesi, 41-uy, 5-xona</p>
                 </div>
               </div>
             </div>

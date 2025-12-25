@@ -14,10 +14,10 @@ export default component$(() => {
           O'zbekistondagi eng ishonchli va litsenziyalangan turistik xizmatlar ko'rsatish markazi.
         </p>
         <div class="flex flex-col sm:flex-row justify-center gap-4">
-          <a href="#tours" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-bold transition">
+          <a href="/tours" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-bold transition">
             Turlarni ko'rish
           </a>
-          <a href="#about" class="bg-white/20 backdrop-blur-md hover:bg-white/30 text-white px-8 py-3 rounded-full font-bold transition border border-white/50">
+          <a href="/about" class="bg-white/20 backdrop-blur-md hover:bg-white/30 text-white px-8 py-3 rounded-full font-bold transition border border-white/50">
             Batafsil ma'lumot
           </a>
         </div>

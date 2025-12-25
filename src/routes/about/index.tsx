@@ -83,8 +83,8 @@ export default component$(() => {
                 Bizning faoliyatimiz O'zbekiston Respublikasi Turizm qo'mitasi tomonidan berilgan litsenziya asosida tartibga solinadi. Biz xalqaro turizm standartlariga to'liq rioya qilamiz.
               </p>
               <div class="flex flex-wrap justify-center gap-8 text-sm font-semibold text-green-800">
-                <span class="flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span> STIR: 301234567</span>
-                <span class="flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span> Litsenziya: №123-456 (Jarayonda)</span>
+                <span class="flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span> STIR: ---</span>
+                <span class="flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span> Litsenziya: № (Jarayonda)</span>
               </div>
             </div>
           </div>
