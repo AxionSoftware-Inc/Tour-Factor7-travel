@@ -54,8 +54,7 @@ export default component$(() => {
                   </svg>
                 </div>
                 <h3 class="text-xl font-bold mb-2">Elektron pochta</h3>
-                <p class="text-gray-600">info@traveluz.com</p>
-                <p class="text-gray-600">support@traveluz.com</p>
+                <p class="text-gray-600">Shabuka0707@gmail.com</p>
               </div>
             </div>
           </div>
