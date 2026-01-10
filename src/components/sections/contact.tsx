@@ -1,91 +1,153 @@
 import { component$ } from '@builder.io/qwik';
+import Header from '~/components/layout/header';
+import Footer from '~/components/layout/footer';
+import { Link } from '@builder.io/qwik-city';
 
 export default component$(() => {
-  // Google Maps manzili (Toshkent markazi misolida)
-  // O'zingizning ofisingiz koordinatalarini "Share > Embed map" orqali olib, src qismiga qo'yishingiz mumkin
-  const mapUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2994.9!2d69.2064!3d41.3535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8db6d85918bb%3A0xc3b44615d183857e!2sBeruniy%20B-3!5e0!3m2!1sen!2suz!4v1703510000000";
-
   return (
-    <section id="contact" class="py-24 bg-white">
-      <div class="container mx-auto px-6">
-        <div class="text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
-            Biz bilan bog'laning
-          </h2>
-          <p class="text-gray-500 max-w-2xl mx-auto">
-            Sayohat bo'yicha savollaringiz bormi? Ma'lumotlaringizni qoldiring, biz sizga tez fursatda aloqaga chiqamiz.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          
-          {/* 1. Aloqa Formasi */}
-          <div class="bg-gray-50 p-8 md:p-10 rounded-[2rem] border border-gray-100 shadow-sm">
-            <form class="space-y-6">
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label class="block text-sm font-bold text-gray-700 mb-2">Ismingiz</label>
-                  <input 
-                    type="text" 
-                    placeholder="Alisher" 
-                    class="w-full px-5 py-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
-                  />
-                </div>
-                <div>
-                  <label class="block text-sm font-bold text-gray-700 mb-2">Telefon</label>
-                  <input 
-                    type="tel" 
-                    placeholder="+998" 
-                    class="w-full px-5 py-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
-                  />
-                </div>
-              </div>
-              <div>
-                <label class="block text-sm font-bold text-gray-700 mb-2">Xabar</label>
-                <textarea 
-                  rows={4} 
-                  placeholder="Sizni qaysi yo'nalish qiziqtiryapti?" 
-                  class="w-full px-5 py-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition resize-none"
-                ></textarea>
-              </div>
-              <button class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-green-200 transition duration-300">
-                Arizani yuborish
-              </button>
-            </form>
+    <div class="bg-white min-h-screen font-sans selection:bg-emerald-500 selection:text-white">
+      
+      <main class="pt-20">
+        {/* 1. Hero Section - Premium Dark Style */}
+        <section class="relative bg-slate-950 py-24 md:py-32 overflow-hidden">
+          {/* Orqa fon effektlari */}
+          <div class="absolute inset-0 opacity-20">
+             <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald-600 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
+             <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-900 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2"></div>
+             <div class="absolute inset-0 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:40px_40px] opacity-10"></div>
           </div>
 
-          {/* 2. Xarita (Google Maps) */}
-          <div class="w-full h-full min-h-[400px] lg:min-h-[500px] rounded-[2rem] overflow-hidden shadow-2xl border-8 border-white group relative">
-            <div class="absolute inset-0 bg-green-600/5 pointer-events-none group-hover:bg-transparent transition duration-500"></div>
-            <iframe
-              src={mapUrl}
-              width="100%"
-              height="100%"
-              style="border:0;"
-              allowFullscreen={true}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              class="grayscale-[20%] hover:grayscale-0 transition duration-500"
-            ></iframe>
-            
-            {/* Manzil haqida kichik info box (Floating) */}
-            <div class="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-green-100 hidden md:block">
-              <div class="flex items-start gap-4">
-                <div class="bg-green-600 p-3 rounded-lg text-white">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  </svg>
+          <div class="max-w-screen-xl mx-auto px-6 relative z-10 text-center md:text-left">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-emerald-400 text-[10px] font-black uppercase tracking-[0.3em] mb-8 backdrop-blur-md">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              Bizning Tariximiz
+            </div>
+            <h1 class="text-5xl md:text-7xl font-black text-white mb-8 uppercase tracking-tighter leading-none">
+              Sizning ishonchli <br /> <span class="text-emerald-500 italic">Hamkoringiz</span>
+            </h1>
+            <p class="text-slate-400 text-lg md:text-xl max-w-2xl font-medium leading-relaxed border-l-4 border-emerald-600 pl-6">
+              TRAVELUZ — O'zbekistonning turizm salohiyatini dunyoga tanitish va vatandoshlarimizga xavfsiz, sifatli va unutilmas sayohatlarni taqdim etish maqsadida tashkil etilgan.
+            </p>
+          </div>
+        </section>
+
+        {/* 2. Mission & Director Section */}
+        <section class="py-24 bg-white relative">
+          <div class="max-w-screen-xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+              
+              {/* Rasm va Direktor bloki */}
+              <div class="relative">
+                <div class="aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl border-8 border-slate-50 relative group">
+                  <img 
+                    src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1932&auto=format&fit=crop" 
+                    alt="Office Atmosphere" 
+                    class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" 
+                  />
+                  
+                  {/* Floating Director Card */}
+                  <div class="absolute bottom-8 left-8 right-8 bg-white/95 backdrop-blur-xl p-6 rounded-3xl shadow-xl border border-white/50">
+                     <p class="text-[10px] font-black uppercase tracking-widest text-emerald-600 mb-2">Direktor</p>
+                     <h3 class="text-lg font-black text-slate-900 uppercase leading-tight mb-4">
+                       Turobova Niginabonu <br/> Xasanboy qizi
+                     </h3>
+                     <div class="flex items-center gap-3 pt-4 border-t border-slate-100">
+                        <div class="h-8 w-8 rounded-full bg-slate-900 flex items-center justify-center text-white text-xs">TN</div>
+                        <span class="text-xs font-bold text-slate-500">TRAVELUZ Agency</span>
+                     </div>
+                  </div>
                 </div>
+                {/* Bezak */}
+                <div class="absolute -z-10 top-12 -left-12 w-full h-full border-2 border-emerald-100 rounded-[3.5rem]"></div>
+              </div>
+
+              {/* Matnli qism */}
+              <div class="space-y-10">
                 <div>
-                  <h4 class="font-bold text-gray-900">Factor7 Travel Ofisi</h4>
-                  <p class="text-sm text-gray-600">Olmazor tumani, Beruniy B-3 mavzesi, 41-uy, 5-xona</p>
+                   <h2 class="text-4xl font-black text-slate-900 uppercase tracking-tighter mb-6 leading-tight">
+                     Bizning <span class="text-emerald-600">Missiyamiz</span> va <br/> Maqsadimiz
+                   </h2>
+                   <div class="w-24 h-2 bg-slate-900 rounded-full"></div>
                 </div>
+                
+                <div class="space-y-6 text-lg text-slate-600 font-medium leading-relaxed">
+                  <p>
+                    Biz uchun har bir mijoz — bu shon-sharaf va ulkan mas'uliyat demakdir. Biz shunchaki tur sotmaymiz, biz sizning oilangiz va yaqinlaringiz uchun unutilmas xotiralarni yaratishda ko'maklashamiz.
+                  </p>
+                  <p>
+                    Kompaniyamiz xalqaro turizm standartlariga to'liq rioya qilgan holda, eng so'nggi texnologiyalar va tajribali mutaxassislar yordamida xizmat ko'rsatadi.
+                  </p>
+                </div>
+
+                {/* Statistika */}
+                <div class="grid grid-cols-2 gap-6">
+                  <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 text-center hover:bg-emerald-50 hover:border-emerald-200 transition-colors duration-300">
+                    <div class="text-4xl font-black text-slate-900 mb-1">1000+</div>
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Mamnun mijozlar</div>
+                  </div>
+                  <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100 text-center hover:bg-emerald-50 hover:border-emerald-200 transition-colors duration-300">
+                    <div class="text-4xl font-black text-slate-900 mb-1">50+</div>
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Yo'nalishlar</div>
+                  </div>
+                </div>
+                
+                <Link href="/contact" class="inline-flex items-center gap-2 font-black text-sm uppercase tracking-widest text-slate-900 border-b-2 border-slate-900 pb-1 hover:text-emerald-600 hover:border-emerald-600 transition-all">
+                  Biz bilan bog'lanish <span>→</span>
+                </Link>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* 3. Official Info Block (Trust Section - YANGILANDI) */}
+        <section class="py-24">
+          <div class="max-w-screen-xl mx-auto px-6">
+            <div class="bg-slate-900 rounded-[3rem] p-12 md:p-20 relative overflow-hidden text-center md:text-left shadow-2xl shadow-slate-300">
+              {/* Decorative Glow */}
+              <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-600/20 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2"></div>
+              
+              <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
+                 <div class="space-y-6 max-w-2xl">
+                    <h2 class="text-3xl md:text-4xl font-black text-white uppercase tracking-tighter">Rasmiy Ma'lumotlar</h2>
+                    <p class="text-slate-400 font-medium leading-relaxed">
+                      Bizning faoliyatimiz O'zbekiston Respublikasi Turizm qo'mitasi tomonidan berilgan litsenziya asosida tartibga solinadi. Biz xalqaro turizm standartlariga to'liq rioya qilamiz.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                       {/* STIR */}
+                       <div class="bg-white/5 border border-white/10 p-5 rounded-2xl backdrop-blur-sm">
+                          <p class="text-[10px] text-emerald-400 uppercase font-black tracking-widest mb-1">STIR (INN)</p>
+                          <p class="text-white font-mono text-xl font-bold">307 230 444</p>
+                       </div>
+                       {/* Indeks */}
+                       <div class="bg-white/5 border border-white/10 p-5 rounded-2xl backdrop-blur-sm">
+                          <p class="text-[10px] text-emerald-400 uppercase font-black tracking-widest mb-1">Pochta Indeksi</p>
+                          <p class="text-white font-mono text-xl font-bold">100001</p>
+                       </div>
+                       {/* Manzil */}
+                       <div class="bg-white/5 border border-white/10 p-5 rounded-2xl backdrop-blur-sm sm:col-span-2">
+                          <p class="text-[10px] text-emerald-400 uppercase font-black tracking-widest mb-1">Yuridik Manzil</p>
+                          <p class="text-white font-bold text-lg">Toshkent sh., Kichik halqa yo'li, 151A/1-uy</p>
+                          <p class="text-white/40 text-xs italic mt-1">(Малая кольцевая дор. 151А/1)</p>
+                       </div>
+                    </div>
+                 </div>
+
+                 {/* Litsenziya Grafikasi */}
+                 <div class="shrink-0 relative group">
+                    <div class="absolute inset-0 bg-emerald-500 blur-2xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
+                    <div class="w-64 h-64 bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl flex flex-col items-center justify-center p-6 text-center rotate-3 group-hover:rotate-0 transition-transform duration-500">
+                       <div class="w-16 h-16 bg-emerald-500 rounded-full flex items-center justify-center text-3xl mb-4 shadow-lg">📜</div>
+                       <p class="text-xs font-bold text-white uppercase tracking-widest mb-1">Litsenziya</p>
+                       <p class="text-sm text-emerald-300 font-bold uppercase border-t border-white/10 pt-2 mt-2 w-full">Jarayonda</p>
+                    </div>
+                 </div>
               </div>
             </div>
           </div>
-
-        </div>
-      </div>
-    </section>
+        </section>
+      </main>
+    </div>
   );
 });
