@@ -1,6 +1,4 @@
 import { component$ } from '@builder.io/qwik';
-import Header from '~/components/layout/header';
-import Footer from '~/components/layout/footer';
 import { Link } from '@builder.io/qwik-city';
 
 export default component$(() => {

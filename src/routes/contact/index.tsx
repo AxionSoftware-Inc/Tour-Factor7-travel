@@ -6,7 +6,7 @@ export default component$(() => {
   // Formani yuborish holati (hozircha vizual)
   const isSending = useSignal(false);
 
-  const handleSubmit = $(async (e: Event) => {
+  const handleSubmit = $(async () => {
     // Bu yerda keyinchalik Django API ga ulaymiz
     isSending.value = true;
     await new Promise(resolve => setTimeout(resolve, 2000)); // Imitatsiya
