@@ -21,7 +21,9 @@ export default component$(() => {
           <ul class="space-y-2">
             <li>Ommaviy oferta</li>
             <li>Maxfiylik siyosati</li>
-            <li>STIR: ---</li>
+            <li>STIR: 307230444</li>
+            <li>Pochta indeksi: 100001</li>
+            <li>Manzil: Малая кольцевая дор. 151А/</li>
           </ul>
         </div>
         <div>
