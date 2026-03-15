@@ -14,7 +14,7 @@ export default component$((props: TourProps) => {
       {/* Image Container with Cinematic Zoom */}
       <div class="relative h-72 overflow-hidden">
         <img 
-          src={props.image || '/travel_hero_background_1773558886260.png'} 
+          src={props.image || '/tour.jpg'} 
           alt={props.title} 
           width={400}
           height={300}
