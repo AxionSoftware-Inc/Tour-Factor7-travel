@@ -76,7 +76,19 @@ export default component$(() => {
 
       <main>
         <section class="relative overflow-hidden bg-slate-950">
-          <div class="absolute inset-0 bg-linear-to-br from-emerald-600/20 via-transparent to-amber-400/10"></div>
+          <div class="absolute inset-0">
+            <img
+              src={tour.image || '/tour.jpg'}
+              alt={tour.title}
+              width={1600}
+              height={900}
+              class="h-full w-full object-cover scale-110 blur-[2px]"
+            />
+          </div>
+          <div class="absolute inset-0 bg-linear-to-b from-slate-950/70 via-slate-950/65 to-slate-950/92"></div>
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(16,185,129,0.18),transparent_32%),radial-gradient(circle_at_82%_18%,rgba(245,158,11,0.14),transparent_22%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.08),transparent_24%)]"></div>
+          <div class="absolute -left-20 top-20 h-64 w-64 rounded-full bg-emerald-400/18 blur-3xl"></div>
+          <div class="absolute right-0 top-12 h-56 w-56 rounded-full bg-amber-300/12 blur-3xl"></div>
           <div class="container mx-auto px-6 py-16 lg:py-24 relative z-10">
             <Link
               href="/tours"
@@ -140,7 +152,8 @@ export default component$(() => {
               <div class="relative">
                 <div class="absolute -right-8 -top-8 h-40 w-40 rounded-full bg-emerald-500/20 blur-3xl"></div>
                 <div class="absolute -bottom-8 -left-8 h-40 w-40 rounded-full bg-amber-300/20 blur-3xl"></div>
-                <div class="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/5 p-3 shadow-2xl backdrop-blur-xs">
+                <div class="absolute inset-4 rounded-[2.2rem] bg-white/8 blur-2xl"></div>
+                <div class="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/8 p-3 shadow-2xl backdrop-blur-md">
                   <img
                     src={tour.image || '/tour.jpg'}
                     alt={tour.title}
