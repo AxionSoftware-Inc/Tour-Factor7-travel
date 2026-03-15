@@ -1,9 +1,10 @@
-import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
+import { routeLoader$ } from '@builder.io/qwik-city';
 import Header from '~/components/layout/header';
 import Footer from '~/components/layout/footer';
 import TourCard from '~/components/cards/tour-card';
 import { Link } from 'flowbite-qwik';
-import { getClientApiUrl } from '~/utils/api';
+import { getServerApiUrl } from '~/utils/api';
 
 // Tour interfeysi
 interface Tour {
@@ -12,36 +13,42 @@ interface Tour {
   category_name: string;
   duration: string;
   price: string;
-  image: string;
+  image: string | null;
   slug: string;
 }
 
-export default component$(() => {
-  const toursSignal = useSignal<Tour[]>([]);
-  const isLoading = useSignal(true);
+const FALLBACK_TOUR_IMAGE = '/travel_hero_background_1773558886260.png';
 
-  useVisibleTask$(async () => {
-    const apiUrl = getClientApiUrl();
-    const backendUrl = apiUrl.replace('/api', '');
+export const useTours = routeLoader$(async (requestEvent) => {
+  const apiUrl = getServerApiUrl(
+    requestEvent.url,
+    requestEvent.env.get('INTERNAL_API_URL') || requestEvent.env.get('PUBLIC_API_URL')
+  );
+  const backendUrl = apiUrl.replace('/api', '');
 
-    try {
-      const response = await fetch(`${apiUrl}/tours/`);
-      if (!response.ok) {
-        throw new Error('API request failed');
-      }
-
-      const data = await response.json();
-      toursSignal.value = (data as Tour[]).map((tour) => ({
-        ...tour,
-        image: tour.image && !tour.image.startsWith('http') ? `${backendUrl}${tour.image}` : tour.image,
-      }));
-    } catch (error) {
-      console.error('Fetch error:', error);
-      toursSignal.value = [];
-    } finally {
-      isLoading.value = false;
+  try {
+    const response = await fetch(`${apiUrl}/tours/`);
+    if (!response.ok) {
+      throw new Error('API request failed');
     }
-  });
+
+    const data = await response.json();
+    return (data as Tour[]).map((tour) => ({
+      ...tour,
+      image: tour.image
+        ? tour.image.startsWith('http')
+          ? tour.image
+          : `${backendUrl}${tour.image}`
+        : FALLBACK_TOUR_IMAGE,
+    }));
+  } catch (error) {
+    console.error('Tours loader error:', error);
+    return [];
+  }
+});
+
+export default component$(() => {
+  const toursSignal = useTours();
 
   return (
     <div class="bg-white min-h-screen">
@@ -72,11 +79,7 @@ export default component$(() => {
               ))}
             </div>
 
-            {isLoading.value ? (
-              <div class="text-center py-20">
-                <h3 class="text-2xl font-bold text-gray-500">Turlar yuklanmoqda...</h3>
-              </div>
-            ) : toursSignal.value.length > 0 ? (
+            {toursSignal.value.length > 0 ? (
               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {toursSignal.value.map((tour) => (
                   <TourCard 
