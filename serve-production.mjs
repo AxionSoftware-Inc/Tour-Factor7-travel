@@ -1,12 +1,51 @@
 import { createServer } from "node:http";
+import { createReadStream, existsSync, statSync } from "node:fs";
+import { extname, join, normalize, resolve } from "node:path";
 
 import qwikCity from "./server/entry.preview.js";
 
 const { router, notFound, staticFile } = qwikCity;
 const host = process.env.HOST || "0.0.0.0";
 const port = Number(process.env.PORT || "3000");
+const distRoot = resolve(process.cwd(), "dist");
 
-const middlewares = [staticFile, router, notFound];
+const contentTypes = {
+  ".css": "text/css; charset=utf-8",
+  ".ico": "image/x-icon",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".js": "application/javascript; charset=utf-8",
+  ".json": "application/json; charset=utf-8",
+  ".png": "image/png",
+  ".svg": "image/svg+xml",
+  ".txt": "text/plain; charset=utf-8",
+  ".webp": "image/webp",
+};
+
+const serveDistFile = (req, res, next) => {
+  const requestUrl = req.url || "/";
+  const pathname = new URL(requestUrl, `http://${req.headers.host || "localhost"}`).pathname;
+
+  if (!pathname.includes(".")) {
+    next();
+    return;
+  }
+
+  const relativePath = pathname.replace(/^\/+/, "");
+  const filePath = normalize(join(distRoot, relativePath));
+
+  if (!filePath.startsWith(distRoot) || !existsSync(filePath) || !statSync(filePath).isFile()) {
+    next();
+    return;
+  }
+
+  const extension = extname(filePath).toLowerCase();
+  res.statusCode = 200;
+  res.setHeader("Content-Type", contentTypes[extension] || "application/octet-stream");
+  createReadStream(filePath).pipe(res);
+};
+
+const middlewares = [serveDistFile, staticFile, router, notFound];
 
 const server = createServer((req, res) => {
   let index = 0;
