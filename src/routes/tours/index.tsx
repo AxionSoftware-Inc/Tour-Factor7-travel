@@ -4,6 +4,7 @@ import Header from '~/components/layout/header';
 import Footer from '~/components/layout/footer';
 import TourCard from '~/components/cards/tour-card';
 import { Link } from 'flowbite-qwik';
+import { FALLBACK_PUBLIC_API_URL } from '~/utils/api';
 
 // Tour interfeysi
 interface Tour {
@@ -18,7 +19,10 @@ interface Tour {
 
 // Backend'dan turlarni yuklash (SSR)
 export const useToursLoader = routeLoader$(async (requestEvent) => {
-  const apiUrl = requestEvent.env.get('PUBLIC_API_URL') || 'http://127.0.0.1:8000/api';
+  const apiUrl =
+    requestEvent.env.get('INTERNAL_API_URL') ||
+    requestEvent.env.get('PUBLIC_API_URL') ||
+    FALLBACK_PUBLIC_API_URL;
   const backendUrl = apiUrl.replace('/api', '');
   try {
     const response = await fetch(`${apiUrl}/tours/`);

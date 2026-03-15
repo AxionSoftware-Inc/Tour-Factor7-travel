@@ -1,6 +1,7 @@
 import { component$, useSignal, $ } from '@builder.io/qwik';
 import Header from '~/components/layout/header';
 import Footer from '~/components/layout/footer';
+import { getClientApiUrl } from '~/utils/api';
 
 export default component$(() => {
   // Formani yuborish holati (hozircha vizual)
@@ -18,7 +19,7 @@ export default component$(() => {
     };
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/inquiries/', {
+      const response = await fetch(`${getClientApiUrl()}/inquiries/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
