@@ -22,7 +22,7 @@ const FALLBACK_TOUR_IMAGE = '/travel_hero_background_1773558886260.png';
 export const useTours = routeLoader$(async (requestEvent) => {
   const apiUrl = getServerApiUrl(
     requestEvent.url,
-    requestEvent.env.get('INTERNAL_API_URL') || requestEvent.env.get('PUBLIC_API_URL')
+    requestEvent.env.get('PUBLIC_API_URL') || requestEvent.env.get('INTERNAL_API_URL')
   );
   const backendUrl = apiUrl.replace('/api', '');
 
