@@ -1,19 +1,47 @@
 import { component$ } from '@builder.io/qwik';
+import { routeLoader$ } from '@builder.io/qwik-city';
 import Header from '~/components/layout/header';
 import Footer from '~/components/layout/footer';
 import TourCard from '~/components/cards/tour-card';
 import { Link } from 'flowbite-qwik';
 
+// Tour interfeysi
+interface Tour {
+  id: number;
+  title: string;
+  category_name: string;
+  duration: string;
+  price: string;
+  image: string;
+  slug: string;
+}
+
+// Backend'dan turlarni yuklash (SSR)
+export const useToursLoader = routeLoader$(async (requestEvent) => {
+  const apiUrl = requestEvent.env.get('PUBLIC_API_URL') || 'http://127.0.0.1:8000/api';
+  const backendUrl = apiUrl.replace('/api', '');
+  try {
+    const response = await fetch(`${apiUrl}/tours/`);
+    if (!response.ok) {
+      throw new Error('API request failed');
+    }
+    const data = await response.json();
+    
+    // Rasm yo'llarini to'g'irlash
+    const tours = (data as Tour[]).map(tour => ({
+      ...tour,
+      image: tour.image.startsWith('http') ? tour.image : `${backendUrl}${tour.image}`
+    }));
+
+    return tours;
+  } catch (error) {
+    console.error('Fetch error:', error);
+    return []; // Xatolik bo'lsa bo'sh massiv qaytaramiz
+  }
+});
+
 export default component$(() => {
-  // Mock ma'lumotlar (Buni keyinchalik Django API'dan olasiz)
-  const tours = [
-    { title: "Turkiya Sayohati", category: "Tarix", duration: "7 kun / 6 kecha", price: "$450", image: "https://facts.net/wp-content/uploads/2020/05/AdobeStock_104060928.jpeg" },
-    { title: "Umra Safari 2025", category: "Ziyorat", duration: "14 kun", price: "$1200", image: "https://i.pinimg.com/originals/35/1e/0a/351e0a1b9050c2494fe1c890c59e51e3.jpg" },
-    { title: "Yevropa Bo'ylab", category: "Ekshursiya", duration: "10 kun", price: "$1500", image: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b" },
-    { title: "Misr Piramidalari", category: "Tarix", duration: "5 kun", price: "$380", image: "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368" },
-    { title: "Dubay", category: "Hordiq", duration: "4 kun", price: "$700", image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c" },
-    { title: "Samarqand & Buxoro", category: "Ichki", duration: "3 kun", price: "2 mln so'm", image: "https://media.cnn.com/api/v1/images/stellar/prod/231219110146-samarkand-eternal-city-01.jpg?c=16x9&q=w_1280,c_fill" },
-  ];
+  const toursSignal = useToursLoader();
 
   return (
     <div class="bg-white min-h-screen">
@@ -44,18 +72,25 @@ export default component$(() => {
               ))}
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-              {tours.map((tour, index) => (
-                <TourCard 
-                  key={index}
-                  title={tour.title}
-                  image={tour.image}
-                  price={tour.price}
-                  duration={tour.duration}
-                  category={tour.category}
-                />
-              ))}
-            </div>
+            {toursSignal.value.length > 0 ? (
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                {toursSignal.value.map((tour) => (
+                  <TourCard 
+                    key={tour.id}
+                    title={tour.title}
+                    image={tour.image}
+                    price={tour.price}
+                    duration={tour.duration}
+                    category={tour.category_name}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div class="text-center py-20">
+                <h3 class="text-2xl font-bold text-gray-500">Hozircha turlar mavjud emas.</h3>
+                <p class="text-gray-400 mt-2">Tez orada yangi turlarni qo'shamiz!</p>
+              </div>
+            )}
           </div>
         </section>
 

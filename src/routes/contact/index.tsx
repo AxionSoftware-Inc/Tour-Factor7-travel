@@ -6,12 +6,38 @@ export default component$(() => {
   // Formani yuborish holati (hozircha vizual)
   const isSending = useSignal(false);
 
-  const handleSubmit = $(async () => {
-    // Bu yerda keyinchalik Django API ga ulaymiz
+  const handleSubmit = $(async (event: Event) => {
     isSending.value = true;
-    await new Promise(resolve => setTimeout(resolve, 2000)); // Imitatsiya
-    isSending.value = false;
-    alert("Xabar yuborildi!");
+    const form = event.target as HTMLFormElement;
+    const formData = new FormData(form);
+    
+    const data = {
+      full_name: formData.get('full_name'),
+      phone_number: formData.get('phone_number'),
+      message: formData.get('message'),
+    };
+
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/inquiries/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        alert("Xabaringiz muvaffaqiyatli yuborildi! Tez orada siz bilan bog'lanamiz.");
+        form.reset();
+      } else {
+        alert("Xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring.");
+      }
+    } catch (error) {
+      console.error('Error sending inquiry:', error);
+      alert("Internet bilan bog'liq muammo yuz berdi.");
+    } finally {
+      isSending.value = false;
+    }
   });
 
   return (
@@ -109,18 +135,18 @@ export default component$(() => {
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div class="space-y-2">
                          <label class="text-xs font-bold text-slate-500 uppercase ml-3">Ismingiz</label>
-                         <input type="text" class="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-emerald-500 outline-none font-bold text-slate-900 transition-all" placeholder="Ismingizni kiriting" />
+                         <input name="full_name" type="text" required class="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-emerald-500 outline-none font-bold text-slate-900 transition-all" placeholder="Ismingizni kiriting" />
                       </div>
                       <div class="space-y-2">
                          <label class="text-xs font-bold text-slate-500 uppercase ml-3">Telefon</label>
-                         <input type="tel" class="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-emerald-500 outline-none font-bold text-slate-900 transition-all" placeholder="+998" />
+                         <input name="phone_number" type="tel" required class="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-emerald-500 outline-none font-bold text-slate-900 transition-all" placeholder="+998" />
                       </div>
                     </div>
                     <div class="space-y-2">
                        <label class="text-xs font-bold text-slate-500 uppercase ml-3">Xabar matni</label>
-                       <textarea rows={4} class="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-emerald-500 outline-none font-bold text-slate-900 transition-all resize-none" placeholder="Savolingizni yozing..."></textarea>
+                       <textarea name="message" required rows={4} class="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-emerald-500 outline-none font-bold text-slate-900 transition-all resize-none" placeholder="Savolingizni yozing..."></textarea>
                     </div>
-                    <button type="submit" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-emerald-600 transition-colors shadow-lg shadow-emerald-900/10">
+                    <button type="submit" disabled={isSending.value} class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-emerald-600 transition-colors shadow-lg shadow-emerald-900/10 disabled:bg-slate-400">
                       {isSending.value ? 'Yuborilmoqda...' : 'Yuborish'}
                     </button>
                   </form>
