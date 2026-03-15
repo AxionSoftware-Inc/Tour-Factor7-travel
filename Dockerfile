@@ -11,25 +11,20 @@ RUN npm install
 COPY . .
 
 # Build the application
-RUN npm run build
+RUN npm run build && npm run build.preview
 
 # Production runtime
 FROM node:20-slim
 
 WORKDIR /app
 
-# Copy built assets and production dependencies
+# Copy built assets and runtime dependencies
 COPY --from=builder /app/dist /app/dist
+COPY --from=builder /app/server /app/server
 COPY --from=builder /app/node_modules /app/node_modules
 COPY --from=builder /app/package.json /app/package.json
-COPY --from=builder /app/public /app/public
-
-# Create server entry point
-# Note: Qwik production entry point depends on the adapter used.
-# Since the user has netlify in package.json but we are dockerizing, 
-# we might need to use the node adapter or preview for general docker.
-# For simplicity in local docker, we'll use npm run start or node server/entry.mjs
+COPY --from=builder /app/serve-production.mjs /app/serve-production.mjs
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start"] # Or equivalent based on user's vite config
+CMD ["node", "serve-production.mjs"]
