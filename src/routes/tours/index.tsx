@@ -1,10 +1,9 @@
-import { component$ } from '@builder.io/qwik';
-import { routeLoader$ } from '@builder.io/qwik-city';
+import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import Header from '~/components/layout/header';
 import Footer from '~/components/layout/footer';
 import TourCard from '~/components/cards/tour-card';
 import { Link } from 'flowbite-qwik';
-import { FALLBACK_PUBLIC_API_URL } from '~/utils/api';
+import { getClientApiUrl } from '~/utils/api';
 
 // Tour interfeysi
 interface Tour {
@@ -17,35 +16,32 @@ interface Tour {
   slug: string;
 }
 
-// Backend'dan turlarni yuklash (SSR)
-export const useToursLoader = routeLoader$(async (requestEvent) => {
-  const apiUrl =
-    requestEvent.env.get('INTERNAL_API_URL') ||
-    requestEvent.env.get('PUBLIC_API_URL') ||
-    FALLBACK_PUBLIC_API_URL;
-  const backendUrl = apiUrl.replace('/api', '');
-  try {
-    const response = await fetch(`${apiUrl}/tours/`);
-    if (!response.ok) {
-      throw new Error('API request failed');
-    }
-    const data = await response.json();
-    
-    // Rasm yo'llarini to'g'irlash
-    const tours = (data as Tour[]).map(tour => ({
-      ...tour,
-      image: tour.image.startsWith('http') ? tour.image : `${backendUrl}${tour.image}`
-    }));
-
-    return tours;
-  } catch (error) {
-    console.error('Fetch error:', error);
-    return []; // Xatolik bo'lsa bo'sh massiv qaytaramiz
-  }
-});
-
 export default component$(() => {
-  const toursSignal = useToursLoader();
+  const toursSignal = useSignal<Tour[]>([]);
+  const isLoading = useSignal(true);
+
+  useVisibleTask$(async () => {
+    const apiUrl = getClientApiUrl();
+    const backendUrl = apiUrl.replace('/api', '');
+
+    try {
+      const response = await fetch(`${apiUrl}/tours/`);
+      if (!response.ok) {
+        throw new Error('API request failed');
+      }
+
+      const data = await response.json();
+      toursSignal.value = (data as Tour[]).map((tour) => ({
+        ...tour,
+        image: tour.image && !tour.image.startsWith('http') ? `${backendUrl}${tour.image}` : tour.image,
+      }));
+    } catch (error) {
+      console.error('Fetch error:', error);
+      toursSignal.value = [];
+    } finally {
+      isLoading.value = false;
+    }
+  });
 
   return (
     <div class="bg-white min-h-screen">
@@ -76,7 +72,11 @@ export default component$(() => {
               ))}
             </div>
 
-            {toursSignal.value.length > 0 ? (
+            {isLoading.value ? (
+              <div class="text-center py-20">
+                <h3 class="text-2xl font-bold text-gray-500">Turlar yuklanmoqda...</h3>
+              </div>
+            ) : toursSignal.value.length > 0 ? (
               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {toursSignal.value.map((tour) => (
                   <TourCard 
