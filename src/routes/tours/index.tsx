@@ -1,43 +1,10 @@
 import { component$ } from '@builder.io/qwik';
-import { routeLoader$ } from '@builder.io/qwik-city';
+import { Link, routeLoader$ } from '@builder.io/qwik-city';
 import Header from '~/components/layout/header';
 import Footer from '~/components/layout/footer';
 import TourCard from '~/components/cards/tour-card';
-import { Link } from 'flowbite-qwik';
 import { getServerApiUrl } from '~/utils/api';
-
-// Tour interfeysi
-interface Tour {
-  id: number;
-  title: string;
-  category_name: string;
-  duration: string;
-  price: string;
-  image: string | null;
-  slug: string;
-}
-
-const DEFAULT_TOUR_IMAGE = '/tour.jpg';
-
-const getTourFallbackImage = (tour: Pick<Tour, 'slug' | 'title'>) => {
-  if (tour.slug === 'umra-safari-2025') {
-    return '/umra_tour_image_1773558901840.png';
-  }
-
-  if (tour.slug === 'turkiya-sayohati') {
-    return '/turkey_tour_image_1773558917457.png';
-  }
-
-  if (tour.title.toLowerCase().includes('umra')) {
-    return '/umra_tour_image_1773558901840.png';
-  }
-
-  if (tour.title.toLowerCase().includes('turkiya')) {
-    return '/turkey_tour_image_1773558917457.png';
-  }
-
-  return DEFAULT_TOUR_IMAGE;
-};
+import { Tour, normalizeTour } from '~/utils/tours';
 
 export const useTours = routeLoader$(async (requestEvent) => {
   const apiUrl = getServerApiUrl(
@@ -53,14 +20,7 @@ export const useTours = routeLoader$(async (requestEvent) => {
     }
 
     const data = await response.json();
-    return (data as Tour[]).map((tour) => ({
-      ...tour,
-      image: tour.image
-        ? tour.image.startsWith('http')
-          ? tour.image
-          : `${backendUrl}${tour.image}`
-        : getTourFallbackImage(tour),
-    }));
+    return (data as Tour[]).map((tour) => normalizeTour(tour, backendUrl));
   } catch (error) {
     console.error('Tours loader error:', error);
     return [];
@@ -109,6 +69,7 @@ export default component$(() => {
                     price={tour.price}
                     duration={tour.duration}
                     category={tour.category_name}
+                    href={`/tours/${tour.slug || tour.id}`}
                   />
                 ))}
               </div>
