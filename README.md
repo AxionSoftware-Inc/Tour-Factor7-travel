@@ -1,3 +1,17 @@
+# 🔒⚠️ DIQQAT — BU LOYIHA OPEN SOURCE EMAS
+
+> ## ⛔ SOURCE KOD VA ORIGINAL MATERIALLARDAN RUXSATSIZ FOYDALANISH TAQIQLANADI
+> **Ushbu repository’ni ko‘rish, yuklab olish, clone/fork qilish imkoniyati sizga koddan foydalanish huquqini bermaydi.**
+>
+> **Muallif/repository egasining OLDINDAN YOZMA RUXSATISIZ** original source kod, algoritm implementatsiyalari, arxitektura, tadqiqot va benchmarklar, hujjatlar hamda assetlarni **nusxalash, o‘zgartirish, tarqatish, build/run/deploy qilish, tijoriy yoki notijoriy mahsulotda ishlatish, sotish/sublicense qilish yoki AI/ML training va dataset yaratishda ishlatish QAT’IYAN TAQIQLANADI.**
+>
+> **Public preview faqat KO‘RIB CHIQISH VA BAHOLASH uchun. Production yoki tijoriy foydalanish uchun alohida yozma tijoriy litsenziya kerak.**
+>
+> 📄 To‘liq shartlar: **[LICENSE.md](LICENSE.md)**  
+> © 2026 AxionSoftware-Inc / repository owner — **BARCHA HUQUQLAR HIMOYALANGAN.**
+
+---
+
 # Qwik City App ⚡️
 
 - [Qwik Docs](https://qwik.dev/)
